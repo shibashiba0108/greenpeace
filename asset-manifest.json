@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/greenpeace/static/css/main.24260c4e.css",
+    "main.css": "/greenpeace/static/css/main.14b20086.css",
     "main.js": "/greenpeace/static/js/main.e69eb9d9.js",
     "static/js/453.39113714.chunk.js": "/greenpeace/static/js/453.39113714.chunk.js",
     "index.html": "/greenpeace/index.html",
-    "main.24260c4e.css.map": "/greenpeace/static/css/main.24260c4e.css.map",
+    "main.14b20086.css.map": "/greenpeace/static/css/main.14b20086.css.map",
     "main.e69eb9d9.js.map": "/greenpeace/static/js/main.e69eb9d9.js.map",
     "453.39113714.chunk.js.map": "/greenpeace/static/js/453.39113714.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.24260c4e.css",
+    "static/css/main.14b20086.css",
     "static/js/main.e69eb9d9.js"
   ]
 }
