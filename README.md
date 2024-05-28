@@ -68,3 +68,26 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+# Attendance Management
+
+This is a React application for managing attendance over a month.
+
+## How to Run
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/shibashiba0108/greenpeace.git
+   cd greenpeace
+
+### 3. デプロイ方法
+
+アプリケーションを他の人が使いやすいようにデプロイする方法を紹介します。
+
+#### オプション1: GitHub Pagesでデプロイ
+
+GitHub Pagesを使うと、静的なWebアプリケーションを簡単にデプロイできます。
+
+1. **`gh-pages`パッケージをインストール**:
+   ```bash
+   npm install gh-pages --save-dev
