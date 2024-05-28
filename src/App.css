@@ -23,7 +23,7 @@ th, td {
   font-weight: bold;
 }
 
-@media screen and (max-width: 600px) {
+/* @media screen and (max-width: 600px) {
   table, thead, tbody, th, td, tr {
     display: block;
   }
@@ -51,4 +51,4 @@ th, td {
   td {
     border-bottom: 1px solid #eee;
   }
-}
+} */
