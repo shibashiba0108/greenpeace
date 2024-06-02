@@ -11,17 +11,17 @@ export const generateMonthData = () => {
       monthData.push({
         date: formattedDate,
         weekday: weekdays[current.getDay()],
-        type: '通常',
-        startTime: '',
-        endTime: '',
-        regularHours: '',
-        overtimeHours: '',
-        nightHours: '',
-        nightOvertimeHours: '',
-        legalHolidayHours: '',
-        illegalHolidayHours: '',
-        legalNightHours: '',
-        illegalNightHours: '',
+        type: '',
+        startTime: ' ー ',
+        endTime: ' ー ',
+        regularHours: ' ー ',
+        overtimeHours: ' ー ',
+        nightHours: ' ー ',
+        nightOvertimeHours: ' ー ',
+        legalHolidayHours: ' ー ',
+        illegalHolidayHours: ' ー ',
+        legalNightHours: ' ー ',
+        illegalNightHours: ' ー ',
       });
     }
     

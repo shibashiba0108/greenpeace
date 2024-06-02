@@ -7,6 +7,7 @@ const DayAttendance = ({ day, handleChange, index }) => {
       <td data-label="曜日">{day.weekday}</td>
       <td data-label="区分">
       <select value={day.type} onChange={(e) => handleChange(index, 'type', e.target.value)}>
+          <option value=""> ー </option>
           <option value="通常">通常</option>
           <option value="休出">休出</option>
         </select>
