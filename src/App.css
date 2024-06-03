@@ -23,6 +23,18 @@ th, td {
   font-weight: bold;
 }
 
+input, select {
+  /* width: 100%; */
+  box-sizing: border-box;
+}
+
+.App select {
+  float: left;
+}
+
+.App select option {
+  width: 10%;
+}
 /* @media screen and (max-width: 600px) {
   table, thead, tbody, th, td, tr {
     display: block;
