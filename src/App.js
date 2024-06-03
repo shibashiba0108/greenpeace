@@ -5,19 +5,28 @@ import { calculateWorkHours } from './utils/timeUtils';
 import './App.css';
 
 const App = () => {
-  const [monthData, setMonthData] = useState(generateMonthData());
+  const initialData = {
+    ferunando: generateMonthData(),
+    saitoH: generateMonthData(),
+    saitoK: generateMonthData(),
+  };
 
-  const handleChange = (index, field, value) => {
-    const newMonthData = [...monthData];
-    newMonthData[index][field] = value;
+  const [data, setData] = useState(initialData);
+
+  const handleChange = (user, index, field, value) => {
+    const newUserData = [...data[user]];
+    newUserData[index][field] = value;
 
     if (field === 'startTime' || field === 'endTime') {
-      const { startTime, endTime } = newMonthData[index];
+      const { startTime, endTime } = newUserData[index];
       const calculatedHours = calculateWorkHours(startTime, endTime);
-      Object.assign(newMonthData[index], calculatedHours);
+      Object.assign(newUserData[index], calculatedHours);
     }
 
-    setMonthData(newMonthData);
+    setData({
+      ...data,
+      [user]: newUserData,
+    });
   };
 
   return (
@@ -25,17 +34,17 @@ const App = () => {
       <h1>1ヶ月分の勤怠管理</h1>
       <div className="Ferunando">
         <p>氏名：コンセプション フェルナンド エバラ</p>
-      <AttendanceTable month={monthData} handleChange={handleChange} />
+        <AttendanceTable month={data.ferunando} handleChange={(index, field, value) => handleChange('ferunando', index, field, value)} />
       </div>
 
       <div className="saitoH">
         <p>氏名：斉藤 宏</p>
-      <AttendanceTable month={monthData} handleChange={handleChange} />
+        <AttendanceTable month={data.saitoH} handleChange={(index, field, value) => handleChange('saitoH', index, field, value)} />
       </div>
 
       <div className="saitoK">
         <p>氏名：斉藤 和夫</p>
-      <AttendanceTable month={monthData} handleChange={handleChange} />
+        <AttendanceTable month={data.saitoK} handleChange={(index, field, value) => handleChange('saitoK', index, field, value)} />
       </div>
     </div>
   );
