@@ -47,18 +47,18 @@ export const calculateWorkHours = (startTime, endTime) => {
         }
     }
 
-    const regularHours = Math.min(totalHours, 8);
-    const overtimeHours = totalHours > 8 ? (totalHours - 8) : 0;
-    const nightOvertimeHours = nightHours > 8 ? (nightHours - 8) : 0;
+    // const regularHours = Math.min(totalHours, 8);
+    // const overtimeHours = totalHours > 8 ? (totalHours - 8) : 0;
+    // const nightOvertimeHours = nightHours > 8 ? (nightHours - 8) : 0;
 
     return {
-        regularHours:regularHours.toFixed(2),
-        overtimeHours:overtimeHours.toFixed(2),
-        nightHours: nightHours.toFixed(2),
-        nightOvertimeHours:nightOvertimeHours.toFixed(2),
-        legalHolidayHours: '0.00',
-        illegalHolidayHours: '0.00',
-        legalNightHours: '0.00',
-        illegalNightHours: '0.00',
+        regularHours: '0',
+        overtimeHours: '0',
+        nightHours: '0',
+        nightOvertimeHours: '0',
+        legalHolidayHours: '0',
+        illegalHolidayHours: '0',
+        legalNightHours: '0',
+        illegalNightHours: '0',
     };
 };
