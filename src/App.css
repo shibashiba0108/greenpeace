@@ -64,3 +64,33 @@ input, select {
     border-bottom: 1px solid #eee;
   }
 } */
+
+@media print {
+  .App {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  .Ferunando, .saitoH, .saitoK {
+    page-break-inside: avoid;
+  }
+
+  table {
+    border: 1px solid black;
+  }
+
+  th, td {
+    border: 1px solid black;
+    padding: 5px;
+    text-align: left;
+  }
+
+  select, input {
+    border: none;
+  }
+
+  .no-print {
+    display: none;
+  }
+}

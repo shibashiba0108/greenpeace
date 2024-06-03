@@ -10,39 +10,43 @@ const App = () => {
   const [month, setMonth] = useState(5);
   const localDataKey = `attendanceData-${year}-${month}`;
 
-  const initialData = {
-    ferunando: generateMonthData(year, month),
-    saitoH: generateMonthData(year, month),
-    saitoK: generateMonthData(year, month),
-  };
-
-  const [data, setData] = useState(initialData);
+  const [data, setData] = useState(() => {
+    const savedData = loadFromLocalStorage(localDataKey);
+    if (savedData) {
+      return savedData;
+    }
+    return {
+      ferunando: generateMonthData(year, month),
+      saitoH: generateMonthData(year, month),
+      saitoK: generateMonthData(year, month),
+    };
+  });
 
   useEffect(() => {
     saveToLocalStorage(localDataKey, data);
   }, [data, localDataKey]);
 
+  useEffect(() => {
+    const savedData = loadFromLocalStorage(localDataKey);
+    if (savedData) {
+      setData(savedData);
+    } else {
+      setData({
+        ferunando: generateMonthData(year, month),
+        saitoH: generateMonthData(year, month),
+        saitoK: generateMonthData(year, month),
+      });
+    }
+  }, [year, month, localDataKey]);
 
   const handleYearChange = (e) => {
     const newYear = parseInt(e.target.value);
     setYear(newYear);
-    const newDataKey = `attendanceData-${newYear}-${month}`;
-    setData(loadFromLocalStorage(newDataKey) || {
-      ferunando: generateMonthData(newYear, month),
-      saitoH: generateMonthData(newYear, month),
-      saitoK: generateMonthData(newYear, month),
-    });
   };
 
   const handleMonthChange = (e) => {
     const newMonth = parseInt(e.target.value);
     setMonth(newMonth);
-    const newDataKey = `attendanceData-${year}-${newMonth}`;
-    setData(loadFromLocalStorage(newDataKey) || {
-      ferunando: generateMonthData(year, newMonth),
-      saitoH: generateMonthData(year, newMonth),
-      saitoK: generateMonthData(year, newMonth),
-    });
   };
 
   const handleChange = (user, index, field, value) => {
