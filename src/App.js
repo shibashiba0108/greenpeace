@@ -8,54 +8,52 @@ import './App.css';
 
 const App = () => {
   const [year, setYear] = useState(2024);
-  const [month, setMonth] = useState(5);
-  const localDataKey = `attendanceData-${year}-${month}`;
+  const [month, setMonth] = useState(1);
 
-  const [data, setData] = useState(() => {
-    const savedData = loadFromLocalStorage(localDataKey);
-    if (savedData) {
-      return savedData;
-    }
+  const getLocalDataKey = (year, month) => `attendanceData-${year}-${month}`;
+
+  const initializeData = (year, month) => {
     return {
       ferunando: generateMonthData(year, month),
       saitoH: generateMonthData(year, month),
       saitoK: generateMonthData(year, month),
     };
-  });
+  };
 
-  const [totals, setTotals] = useState({
-    ferunando: calculateTotals(data.ferunando),
-    saitoH: calculateTotals(data.saitoH),
-    saitoK: calculateTotals(data.saitoK),
-  });
-
-  useEffect(() => {
-    saveToLocalStorage(localDataKey, data);
-  }, [data, localDataKey]);
-
-  useEffect(() => {
+  const loadInitialData = (year, month) => {
+    const localDataKey = getLocalDataKey(year, month);
     const savedData = loadFromLocalStorage(localDataKey);
-    if (savedData) {
-      setData(savedData);
-      setTotals({
-        ferunando: calculateTotals(savedData.ferunando),
-        saitoH: calculateTotals(savedData.saitoH),
-        saitoK: calculateTotals(savedData.saitoK),
-      });
-    } else {
-      const newData = {
-        ferunando: generateMonthData(year, month),
-        saitoH: generateMonthData(year, month),
-        saitoK: generateMonthData(year, month),
-      };
-      setData(newData);
-      setTotals({
-        ferunando: calculateTotals(newData.ferunando),
-        saitoH: calculateTotals(newData.saitoH),
-        saitoK: calculateTotals(newData.saitoK),
-      });
-    }
-  }, [year, month, localDataKey]);
+    return savedData || initializeData(year, month);
+  };
+
+  const [data, setData] = useState(() => loadInitialData(year, month));
+
+  const calculateAndSetTotals = (data) => {
+    setTotals({
+      ferunando: calculateTotals(data.ferunando),
+      saitoH: calculateTotals(data.saitoH),
+      saitoK: calculateTotals(data.saitoK),
+    });
+  };
+
+  const [totals, setTotals] = useState(() => {
+    return {
+      ferunando: calculateTotals(data.ferunando),
+      saitoH: calculateTotals(data.saitoH),
+      saitoK: calculateTotals(data.saitoK),
+    };
+  });
+
+  useEffect(() => {
+    const initialData = loadInitialData(year, month);
+    setData(initialData);
+    calculateAndSetTotals(initialData);
+  }, [year, month]);
+
+  useEffect(() => {
+    const localDataKey = getLocalDataKey(year, month);
+    saveToLocalStorage(localDataKey, data);
+  }, [data, year, month]);
 
   const handleYearChange = (e) => {
     const newYear = parseInt(e.target.value);
@@ -81,25 +79,19 @@ const App = () => {
       ...data,
       [user]: newUserData,
     };
-    
+
     setData(newData);
-    setTotals({
-      ...totals,
-      [user]: calculateTotals(newUserData),
-    });
+    calculateAndSetTotals(newData);
   };
 
   return (
     <div className="App">
-      {/* <h1>1ヶ月分の勤怠管理</h1> */}
       <div>
-        {/* <label>年を選択: </label> */}
         <select value={year} onChange={handleYearChange}>
-          {[2023, 2024, 2025].map((y) => (
+          {[2024, 2025, 2026].map((y) => (
             <option key={y} value={y}>{y}年</option>
           ))}
         </select>
-        {/* <label>月を選択: </label> */}
         <select value={month} onChange={handleMonthChange}>
           {[...Array(12)].map((_, i) => (
             <option key={i + 1} value={i + 1}>{i + 1}月</option>
@@ -109,6 +101,7 @@ const App = () => {
       <div className="Ferunando">
         <p>氏名：コンセプション フェルナンド エバラ</p>
         <AttendanceTable 
+          key={`ferunando-${year}-${month}`}
           month={data.ferunando} 
           totals={totals.ferunando} 
           handleChange={(index, field, value) => handleChange('ferunando', index, field, value)} 
@@ -117,7 +110,8 @@ const App = () => {
 
       <div className="saitoH">
         <p>氏名：斉藤 宏</p>
-        <AttendanceTable 
+        <AttendanceTable
+          key={`saitoH-${year}-${month}`}
           month={data.saitoH} 
           totals={totals.saitoH} 
           handleChange={(index, field, value) => handleChange('saitoH', index, field, value)} 
@@ -127,6 +121,7 @@ const App = () => {
       <div className="saitoK">
         <p>氏名：斉藤 和夫</p>
         <AttendanceTable 
+          key={`saitoK-${year}-${month}`} 
           month={data.saitoK} 
           totals={totals.saitoK} 
           handleChange={(index, field, value) => handleChange('saitoK', index, field, value)} 
@@ -137,3 +132,4 @@ const App = () => {
 };
 
 export default App;
+
